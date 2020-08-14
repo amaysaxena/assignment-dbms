@@ -1,8 +1,23 @@
+![Compile Assignment PDFs](https://github.com/amaysaxena/assignment-dbms/workflows/Compile%20Assignment%20PDFs/badge.svg)
+
 # LaTeX Problem Database Management System.
 
 This is a template repository for setting up a problem database management system for writing assignments in LaTeX. This system allows you to maintain a global problem database in the `problems` directory, and then reference problems in your assignments. A continuous integration workflow is set up using Github Actions to automatically compile two PDF versions of each assignment (one with solutions and one without), so that only TeX files ever need to be committed to the repository, and all PDFs are automatically generated. To begin using this workflow for your own assignment development, simply create your own fork of this repository, delete the example problems and assignments, and begin adding your own.
 
-## Overview
+## Table of Contents
+1. [Overview](#overview)
+
+2. [Adding a new problem to the question bank](#new_prob)
+
+3. [Using your problem in a new assignment](#using_prob)
+
+   a. [Compiling with and without solutions](#solution_policy)
+
+4. [PDF Autobuild](#autobuild)
+
+5. [Enhancements TODO](#enhancements)
+
+## Overview <a name="overview"></a>
 
 PDF versions of the assignments and solutions are in the `pdf` folder, while the rest of the repository only contains TeX files and assets for use in TeX files. Whenever a new change to any `.tex` file is pushed to this repository, all assignment and solution PDFs are automatically re-built and put into respective sub-directories in the `pdf` directory. There is never any reason to directly push PDF files to this repository.
 
@@ -10,7 +25,7 @@ Each problem in the question bank lives in its own TeX file in the problems dire
 
 To add a new problem to the bank or to use a problem in a new assignment, see the instructions below.
 
-## Adding a new problem to the question bank
+## Adding a new problem to the question bank <a name="new_prob"></a>
 
 To add a new problem to the question bank, create a new `.tex` file in an appropriate subdirectory of the `problems` folder. It doesn't actually matter how you organize the `problems` folder, but it is best to keep this folder organized by topic. In this new TeX file, write your new problem and its solution using the `problem` LaTeX environment defined in the `assignment.sty` style file. This TeX file should not have a preamble though, as we will later include this file in a different document which will have a preamble and will be the file that actually gets compiled. The following is the necessary syntax for using the `problem` environment to define a new problem.
 
@@ -61,7 +76,7 @@ As an example, let us define a new problem regarding the Rodriguez rotation form
 
 And that's it. We are now ready to include this problem in one or more "assignment" files.
 
-## Using your problem in a new assignment
+## Using your problem in a new assignment <a name="using_prob"></a>
 An assignment file is just some TeX file that has a preamble which includes the `assignment.sty` file. The general assignment file looks like this
 
 ```
@@ -100,10 +115,10 @@ So, for instance, an assignment that wishes to include our example problem from 
 \import{../problems/rotations/}{rodriguez.tex}
 ```
 
-#### Compiling with and without solutions 
+#### Compiling with and without solutions <a name="solution_policy"></a>
 Another salient feature of assignment files is the line `\newcommand{\showsolutions}{}`. The presence or absence of this line decides if the assignmemt will be rendered with or without solutions. If you leave this line in and compile the assignment TeX file, the resulting PDF will have solutions after every problem. On the other hand, if you comment this line out or delete it before compiling, the assignmnt PDF will be rendered without solutions. This way, both the assignment PDF and the solutions PDF can be rendered from the same TeX file. Once an assignment file is written, we can push our changes to the repository.
 
-## PDF Autobuild
+## PDF Autobuild <a name="autobuild"></a>
 It is never necessary to push PDF files directly to this repository. This repo is configured with a continuous integration workflow which gets triggered whenever `.tex` changes are pushed to the master branch. When this happens, all `.tex` files NOT in the `problems` folder get compiled into PDFs and put into the `pdf` directory, through an automatically generated commit which will have the commit message `Autobuild PDFs`. Moreover, assignment files are compiled twice, once with and once without the `\showsolutions` flag, and so both the assignment document and the solutions document are generated whenever new changes are pushed.
 
 In particular, the files are placed in a parallel directory tree inside the `pdf` folder. For instance, if an assignment file called `hw.tex` is placed in the directory `/path/to/dir` (given relative to the root of the repo), then the assignment PDF (without solutions) is placed in `pdf/path/to/dir/assignments` and is named `hw_assignment.pdf`, whereas the solutions PDF is placed in `pdf/path/to/dir/solutions` and is called `hw_solutions.pdf`.
@@ -112,8 +127,8 @@ This means that you should NOT push ANY files generated by a latex compiler to t
 
 The autobuild is implemented in the python script `compile_pdfs.py`. Take a look at that file if you would like to see exactly what is going on.
 
-## Global Question Bank PDF
+## Global Question Bank PDF <a name="q_bank"></a>
 It is a good idea to keep a human-readable log of all problems in the question bank. To this end, an assignment file called `question_bank.tex` is maintained in the `question_bank` directory. Whenever you add a new problem to the bank. you should also import it into the corresonding section of this file, even if it is not immediately being used in another assignment. This helps everyone keep track of what problems are already in the bank and allows for a convenient way to browse the entire question bank, sorted by topic. As always, this file too is auto-compiled and PDFs are placed in `pdf/question_bank`.
 
-## Enhancements TODO
+## Enhancements TODO <a name="enhancements"></a>
 1. Automatically delete PDF files whose corresponding assignment files have been deleted.
