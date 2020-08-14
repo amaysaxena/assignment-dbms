@@ -1,0 +1,107 @@
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{makecell}
+\usepackage{fancyvrb} % size font inside verbatim environment
+\newcommand{\verbatimfont}[1]{\renewcommand{\verbatim@font}{\ttfamily#1}}
+\usepackage{siunitx}
+\usepackage{blkarray} % show matrices with letters at borders
+\usepackage{hyperref}
+\usepackage{soul}
+\usepackage{titling} % drop vertical space before the title
+\sethlcolor{lightgray}
+\setlength{\columnsep}{1cm}
+\usepackage[shortlabels]{enumitem}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{import}
+\usepackage{listings}
+\usepackage[useregional]{datetime2}
+\DTMlangsetup[en-GB]{ord=raise,monthyearsep={,\space}}
+
+\definecolor{mylightgrey}{rgb}{0.9, 0.9, 0.9}
+\definecolor{mydarkyellow}{rgb}{0.7, 0.6, 0}
+\definecolor{mymidgreen}{rgb}{0.4, 0.7, 0.4}
+
+% MATLAB
+\lstset{
+  language=Matlab,
+  backgroundcolor = \color{mylightgrey},
+  keywordstyle = \color{blue},
+  stringstyle = \color{mydarkyellow},
+  rulecolor = \color{black},
+  commentstyle = \color{mymidgreen}
+}
+
+% Python
+\lstset{
+  language=Python,
+  basicstyle=\footnotesize,
+  backgroundcolor = \color{mylightgrey},
+  keywordstyle = \color{blue},
+  stringstyle = \color{mydarkyellow},
+  rulecolor = \color{black},
+  commentstyle = \color{mymidgreen}
+}
+
+\newcommand{\givenquestion}{}
+\newcommand{\givensolution}{}
+
+\newcommand{\question}[1]{\renewcommand{\givenquestion}{#1}}
+\newcommand{\solution}[1]{\renewcommand{\givensolution}{#1}}
+\newcounter{problemnum}
+
+\newenvironment{problem}[1]
+ {\refstepcounter{problemnum}
+ \textbf{Problem \theproblemnum. #1}
+ 
+ \vspace{2mm}
+ }
+ {
+  \givenquestion
+  
+  \ifdefined\showsolutions
+  \vspace{2mm}
+  \color{blue}{\textbf{Solution:}
+  
+  \vspace{2mm}
+  \givensolution
+  }
+  \fi
+  \vspace{5mm}
+ }
+
+
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{reflection}[2][Reflection]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{proposition}[2][Proposition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+
+%% inline-code
+\newcommand{\code}[1]{\hl{\texttt{#1}}}
+
+
+% Integers numbers set symbol
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+% Real numbers set symbol
+\DeclareMathOperator{\R}{\mathbb{R}}
+% Trace operator
+\DeclareMathOperator{\tr}{\mathrm{tr}}
+% Natural numbers set symbol
+\DeclareMathOperator{\N}{\mathbb{N}}

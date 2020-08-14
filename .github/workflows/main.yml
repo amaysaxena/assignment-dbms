@@ -1,0 +1,53 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Compile Assignment PDFs
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: 
+      - master
+    paths:
+      - '**.tex'
+  pull_request:
+    paths:
+      - '**.tex'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.7]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install LaTeX dependencies
+      run: sudo apt-get update -y && sudo apt-get install -y texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra texlive-science latexmk
+
+    - name: Pull repo, compile, commit, and push.
+      run: |
+          REMOTE=https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git config user.name "${{ github.actor }}"
+
+          git pull ${REMOTE}
+          git checkout master
+
+          python compile_pdfs.py
+
+          git add ./\*.pdf
+          git status
+          git commit -am "Autobuild PDFs."
+          git push ${REMOTE} master

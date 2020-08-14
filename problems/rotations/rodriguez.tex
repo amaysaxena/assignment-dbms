@@ -1,0 +1,27 @@
+\begin{problem}{Rodriguez' Formula}
+    \question{
+        Answer the following questions:
+        \begin{enumerate}[(a)]
+            \item Using Rodriguez' rotation formula, write down an expression for 
+            $e^{\hat\omega}$ where $\omega$ is a given vector in $\mathbb R^3$.
+            \item Write down an expression for a rotation matrix implementing a rotation
+            by $\theta$ radians counterclockwise about an axis in the direction of 
+            $\omega \in \mathbb R^3$.
+        \end{enumerate}
+    }
+    \solution{
+        \begin{enumerate}
+            \item Let $\theta = ||\omega||$ and $K = \hat\omega / \theta$. Then
+            \begin{align}
+                e^{\hat\omega} = I + (\sin \theta) K + (1-\cos \theta) K^2
+            \end{align}
+            
+            \item Recall that this rotation matrix is exactly the exponential 
+            $e^{\hat u \theta}$ where $u$ is a unit vector in the direction of $\omega$.
+            So let $u = \omega / ||\omega||$. Then the required matrix is
+            \begin{align}
+                \mathbf{R} = I + (\sin \theta) \hat u + (1-\cos \theta) \hat u^2
+            \end{align}
+        \end{enumerate}
+    }
+\end{problem}
