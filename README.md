@@ -12,7 +12,7 @@ To add a new problem to the bank or to use a problem in a new assignment, see th
 
 ## Adding a new problem to the question bank
 
-To add a new problem to the question bank, create a new `.tex` file in an appropriate subdirectory of the `problems` folder. It doesn't actually matter how you organize the `problems` folder, but it is best to keep this folder organized by topic. In this new TeX file, write your new problem and its solution using the `problem` LaTeX environment defined in the `106-assignment.sty` style file. This TeX file should not have a preamble though, as we will later include this file in a different document which will have a preamble and will be the file that actually gets compiled. The following is the necessary syntax for using the `problem` environment to define a new problem.
+To add a new problem to the question bank, create a new `.tex` file in an appropriate subdirectory of the `problems` folder. It doesn't actually matter how you organize the `problems` folder, but it is best to keep this folder organized by topic. In this new TeX file, write your new problem and its solution using the `problem` LaTeX environment defined in the `assignment.sty` style file. This TeX file should not have a preamble though, as we will later include this file in a different document which will have a preamble and will be the file that actually gets compiled. The following is the necessary syntax for using the `problem` environment to define a new problem.
 
 ```
 \begin{problem}{Title of the problem}
@@ -72,10 +72,9 @@ An assignment file is just some TeX file that has a preamble which includes the 
 \newcommand{\showsolutions}{}
 
 \setlength\parindent{0pt} %% Do not touch this
-\title{Example Assignment} %% Assignment Title
+\title{Example Homework Assignment} %% Assignment Title
 \author{
-EECS/BioE/ME C106A/206A \\
-Introduction to Robotics}
+Course XYZ}
 
 % Set Due Date
 \DTMsavedate{duedate}{2020-09-01}
